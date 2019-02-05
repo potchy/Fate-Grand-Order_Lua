@@ -58,26 +58,6 @@ function scaling.ApplyAspectRatioFix(scriptWidth, scriptHeight, imageWidth, imag
 		Settings:setScriptDimension(false, scriptHeight)
 		Settings:setCompareDimension(false, imageHeight)
 	end
-
-	Settings:snapSet("OutputCaptureImg", true)
-	Settings:snapSet("OutputCropImg", true)
-	Settings:snapSet("OutputRegImg", true)
-
-	local highlightRegion = Region(0, 0, scriptWidth, scriptHeight)
-	highlightRegion:highlight()
-
-	dialogInit()
-	local message = "gameWithBorders: Region(%i, %i, %i, %i)\n"
-	message = message .. "gameWithoutBorders: Region(%i, %i, %i, %i)\n"
-	message = message .. "gameWithoutBordersAndNotch: Region(%i, %i, %i, %i)"
-	message = message:format(gameWithBorders:getX(), gameWithBorders:getY(), gameWithBorders:getW(), gameWithBorders:getH()
-						   , gameWithoutBorders:getX(), gameWithoutBorders:getY(), gameWithoutBorders:getW(), gameWithoutBorders:getH()
-						   , gameWithoutBordersAndNotch:getX(), gameWithoutBordersAndNotch:getY(), gameWithoutBordersAndNotch:getW(), gameWithoutBordersAndNotch:getH())
-	addTextView(message)
-	dialogShow("Resolution")
-
-	highlightRegion:highlightOff()
-	click(GeneralImagePath .. "lottery.png")
 end
 
 return scaling
