@@ -26,6 +26,7 @@ local skipDeathAnimation
 local checkCurrentStage
 local didStageChange
 local takeStageSnapshot
+local takeDebugStageSnapshot
 local onStageSnapshotTaken
 local onStageChanged
 
@@ -101,6 +102,8 @@ onTurnStarted = function()
 	if not _hasChosenTarget and Battle_AutoChooseTarget == 1 then
 		autoChooseTarget()
 	end
+
+	takeDebugStageSnapshot()
 end
 
 skipDeathAnimation = function()
@@ -129,6 +132,15 @@ end
 takeStageSnapshot = function()
 	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
 	onStageSnapshotTaken()
+end
+
+takeDebugStageSnapshot = function()
+	local basePath = "image_debug/"
+	local imageFull = ("%s%i_%i_Full.png"):format(basePath, _currentStage, _currentTurn)
+	local imageCropped = ("%s%i_%i_Cropped.png"):format(basePath, _currentStage, _currentTurn)
+	
+	Region(0, 0, 2560, 1440):save(imageFull)
+	_game.BATTLE_STAGE_COUNT_REGION:save(imageCropped)
 end
 
 onStageSnapshotTaken = function()
